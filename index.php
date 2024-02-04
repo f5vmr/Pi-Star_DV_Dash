@@ -14,7 +14,8 @@ if ($configfile = fopen($gatewayConfigPath,'r')) {
 }
 $progname = basename($_SERVER['SCRIPT_FILENAME'],".php");
 $rev=$version;
-$MYCALL=strtoupper($callsign);
+//$MYCALL=strtoupper($callsign);
+$MYCALL=strtoupper($configs['gatewayCallsign']);
 
 // Check if the config file exists
 if (file_exists('/etc/pistar-css.ini')) {
@@ -227,6 +228,12 @@ if (file_exists('/etc/dstar-radio.mmdvmhost')) {
         if ( $testMMDVModeNXDNnet == 1 ) {				// If NXDN network is enabled, add these extra features.
 		if ($_SERVER["PHP_SELF"] == "/admin/index.php") { 	// Admin Only Option
 			include 'mmdvmhost/nxdn_manager.php';		// NXDN Links
+		}
+	}
+	$testMMDVModeM17net = getConfigItem("M17 Network", "Enable", $mmdvmconfigs);
+        if ( $testMMDVModeM17net == 1 ) {				// If NXDN network is enabled, add these extra features.
+		if ($_SERVER["PHP_SELF"] == "/admin/index.php") { 	// Admin Only Option
+			include 'mmdvmhost/m17_manager.php';		// M17 Links
 		}
 	}
 	echo '<script type="text/javascript">'."\n";
